@@ -7,7 +7,7 @@ ShowK Participant's App
 
 ```
 $ docker build -t <your username>/showk-app .
-$ docker run -p <desired port>:8080 -d <your username>/node-web-app
+$ docker run -p <desired port>:8080 -d <your username>/showk-app
 ```
 
 ### Run with Node.js runtime
