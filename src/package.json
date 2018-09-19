@@ -8,7 +8,7 @@
     "JKD"
   ],
   "dependencies": {
-    "express": "4.9.x",
+    "express": "4.x.x",
     "socket.io": "latest"
   },
   "scripts": {
