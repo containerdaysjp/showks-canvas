@@ -27,4 +27,4 @@ Open http://\<your host\>:3000 with a web browser.
 
 [MIT](LICENSE)
 
-This application is forked from [https://github.com/socketio/socket.io/tree/master/examples/whiteboard](Socket.IO Collaborative Whiteboard example).
+This application is forked from [Socket.IO Collaborative Whiteboard example](https://github.com/socketio/socket.io/tree/master/examples/whiteboard).
