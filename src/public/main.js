@@ -2,6 +2,7 @@
 
 (function() {
 
+
   var socket = io();
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
@@ -12,6 +13,15 @@
   };
   var drawing = false;
 
+
+  // Load initial image
+  let image = new Image();
+  image.onload = function() {
+    context.drawImage(image, 0, 0);
+  }; 
+  image.src = '/canvas';
+
+  // Start listening mouse events
   canvas.addEventListener('mousedown', onMouseDown, false);
   canvas.addEventListener('mouseup', onMouseUp, false);
   canvas.addEventListener('mouseout', onMouseUp, false);
@@ -37,14 +47,12 @@
     context.closePath();
 
     if (!emit) { return; }
-    var w = canvas.width;
-    var h = canvas.height;
 
     socket.emit('drawing', {
-      x0: x0 / w,
-      y0: y0 / h,
-      x1: x1 / w,
-      y1: y1 / h,
+      x0: x0,
+      y0: y0,
+      x1: x1,
+      y1: y1,
       color: color
     });
   }
@@ -86,15 +94,13 @@
   }
 
   function onDrawingEvent(data){
-    var w = canvas.width;
-    var h = canvas.height;
-    drawLine(data.x0 * w, data.y0 * h, data.x1 * w, data.y1 * h, data.color);
+    drawLine(data.x0, data.y0, data.x1, data.y1, data.color);
   }
 
   // make the canvas fill its parent
   function onResize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+//    canvas.width = window.innerWidth;
+//    canvas.height = window.innerHeight;
   }
 
 })();
