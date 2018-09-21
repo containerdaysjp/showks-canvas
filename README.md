@@ -20,7 +20,13 @@ $ npm start
 Open http://\<your host\>:3000 with a web browser.
 
 
-## Features
+### Endpoints
+| Endpoint | Description |
+|----------|-------------|
+| /          | The whiteboard Web UI        |
+| /canvas    | Latest canvas image (PNG)    |
+| /thumbnail | Canvas thumbnail (PNG)       |
+| /author    | Author information in (JSON) |
 
 
 ## License
