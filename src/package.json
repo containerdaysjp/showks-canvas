@@ -9,7 +9,8 @@
   ],
   "dependencies": {
     "express": "4.x.x",
-    "socket.io": "latest"
+    "socket.io": "latest",
+    "canvas": "latest"
   },
   "scripts": {
     "start": "node app"
