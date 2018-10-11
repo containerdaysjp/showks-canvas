@@ -3,7 +3,7 @@
 (function() {
 
 
-  var socket = io();
+  var socket = io('/command');
   var canvas = document.getElementsByClassName('whiteboard')[0];
   var colors = document.getElementsByClassName('color');
   var context = canvas.getContext('2d');
@@ -42,7 +42,7 @@
     context.moveTo(x0, y0);
     context.lineTo(x1, y1);
     context.strokeStyle = color;
-    context.lineWidth = 2;
+    context.lineWidth = 5;
     context.stroke();
     context.closePath();
 
