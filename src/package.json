@@ -1,5 +1,5 @@
 {
-  "name": "showk-app",
+  "name": "showks-webapp",
   "version": "0.1.0",
   "description": "A simple collaborative whiteboard using socket.io",
   "main": "app.js",

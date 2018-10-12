@@ -1,13 +1,13 @@
-# showk-app
-ShowK Participant's App
+# showKs-app
+Japan Container Days - showKs participant's web application
 
 ## How to use
 
 ### Run as a container
 
 ```
-$ docker build -t <your username>/showk-app .
-$ docker run -p <desired port>:8080 -d <your username>/showk-app
+$ docker build -t <your username>/showks-webapp:<your tag> .
+$ docker run -p <desired port>:8080 -d <your username>/showks-webapp:<your tag>
 ```
 
 ### Run with Node.js runtime
@@ -20,7 +20,26 @@ $ npm start
 Open http://\<your host\>:3000 with a web browser.
 
 
-### Endpoints
+### HTTP Endpoints
+| Endpoint | Description |
+|----------|-------------|
+| /          | The whiteboard Web UI        |
+| /canvas    | Latest canvas image (PNG)    |
+| /thumbnail | Canvas thumbnail (PNG)       |
+| /author    | Author information in (JSON) |
+
+#### Author information format
+* To be updated
+
+```
+{
+    name: "Name of the author",
+    twitter: "@twitter account of the author"
+}
+```
+
+
+### Socket.IO Endpoints
 | Endpoint | Description |
 |----------|-------------|
 | /          | The whiteboard Web UI        |
