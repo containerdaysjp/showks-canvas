@@ -17,7 +17,7 @@ $ cd src
 $ npm install
 $ npm start
 ```
-Open http://\<your host\>:3000 with a web browser.
+Open http://\<your host\>:8080 with a web browser.
 
 
 ### HTTP Endpoints
@@ -42,10 +42,7 @@ Open http://\<your host\>:3000 with a web browser.
 ### Socket.IO Endpoints
 | Endpoint | Description |
 |----------|-------------|
-| /          | The whiteboard Web UI        |
-| /canvas    | Latest canvas image (PNG)    |
-| /thumbnail | Canvas thumbnail (PNG)       |
-| /author    | Author information in (JSON) |
+| /notification | Notifies the client of 'refresh' message with value 1 when the drawing is updated and there was no message sent within last 5 seconds.  |
 
 
 ## License
