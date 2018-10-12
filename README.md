@@ -39,8 +39,8 @@ Open http://\<your host\>:8080 with a web browser.
 ```
 
 
-### Socket.IO Endpoints
-| Endpoint | Description |
+### Socket.IO Namespaces
+| Namespace | Description |
 |----------|-------------|
 | /notification | Notifies the client of 'refresh' message with value 1 when the drawing is updated and there was no message sent within last 5 seconds.  |
 
