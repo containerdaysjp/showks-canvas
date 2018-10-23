@@ -1,4 +1,4 @@
-# showKs-app
+# showKs Web App
 Japan Container Days - showKs participant's web application
 
 ## How to use
