@@ -13,10 +13,10 @@ const notificationNamespace = io.of('/notification');
 const port = process.env.PORT || 8080;
 
 // Create a canvas for server-side drawing
-const Canvas = require('canvas');
-const canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+const { createCanvas, loadImage } = require('canvas')
+const canvas = createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 const ctx = canvas.getContext('2d');
-const thCanvas = new Canvas(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
+const thCanvas = createCanvas(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
 const thCtx = thCanvas.getContext('2d');
 
 var lastUpdated = 0;

@@ -8,9 +8,9 @@
     "JKD"
   ],
   "dependencies": {
-    "express": "4.x.x",
+    "express": ">=4.5.0",
     "socket.io": "latest",
-    "canvas": "latest"
+    "canvas": "^2.1.0"
   },
   "scripts": {
     "start": "node app"
