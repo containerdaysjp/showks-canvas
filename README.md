@@ -1,13 +1,14 @@
-# showKs Web App
-Japan Container Days - showKs participant's web application
+# showKs Canvas
+showKs Canvas is a simple collaborative whiteboard using socket.io. This is the participant's web application of Japan Container Days showKs.
+
 
 ## How to use
 
 ### Run as a container
 
 ```
-$ docker build -t <your username>/showks-webapp:<your tag> .
-$ docker run -p <desired port>:8080 -d <your username>/showks-webapp:<your tag>
+$ docker build -t <your username>/showks-canvas:<your tag> .
+$ docker run -p <desired port>:8080 -d <your username>/showks-canvas:<your tag>
 ```
 
 ### Run with Node.js runtime
