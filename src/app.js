@@ -11,6 +11,7 @@ const io = require('socket.io')(http);
 const commandNamespace = io.of('/command');
 const notificationNamespace = io.of('/notification');
 const port = process.env.PORT || 8080;
+const allowHost = "http://localhost:3000"; //TODO: ENVの値による動的な書き換え
 
 // Create a canvas for server-side drawing
 const { createCanvas, loadImage } = require('canvas')
@@ -26,6 +27,13 @@ ctx.fillStyle="white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Setup the express web app
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", allowHost);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 // GET /
 app.use(express.static(__dirname + '/public'));
