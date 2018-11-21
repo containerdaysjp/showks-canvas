@@ -11,7 +11,10 @@ const io = require('socket.io')(http);
 const commandNamespace = io.of('/command');
 const notificationNamespace = io.of('/notification');
 const port = process.env.PORT || 8080;
-const allowHost = "http://localhost:3000"; //TODO: ENVの値による動的な書き換え
+const allowHost =
+  process.env.ALLOW_HOST !== undefined &&
+  process.env.ALLOW_HOST !== "" ?
+  process.env.ALLOW_HOST : "http://localhost:3000";
 
 // Create a canvas for server-side drawing
 const { createCanvas, loadImage } = require('canvas')
