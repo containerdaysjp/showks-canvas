@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}-{{ .Values.userID }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}-{{ .Values.userID }}
+          image: containerdaysjp/{{ .Chart.Name }}-{{ .Values.userID }}:{{ .Values.image.tag }}
+          ports:
+            - name: app-port
+              containerPort: 8080
+              protocol: TCP

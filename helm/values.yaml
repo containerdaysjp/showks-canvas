@@ -1,0 +1,7 @@
+replicaCount: 1
+
+image:
+  tag: stable
+
+userID: userid
+
