@@ -42,8 +42,10 @@ Open http://\<your host\>:8080 with a web browser.
 
 ```
 {
-    name: "Name of the author",
-    twitter: "@twitter account of the author"
+    "userName": "Unique user name which identifies an instance",
+    "gitHubId": "GitHub account of the author",
+    "twitterId": "Twitter account of the author",
+    "comment": "Comment shown in the listing"
 }
 ```
 
