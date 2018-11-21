@@ -2,6 +2,14 @@
 showKs Canvas is a simple collaborative whiteboard using socket.io. This is the participant's web application of Japan Container Days showKs.
 
 
+## How to modify
+1. Create your own branch.
+
+2. Edit src/data/author.json
+
+3. Send a pull request to be merged into staging branch
+
+
 ## How to use
 
 ### Run as a container
@@ -34,8 +42,10 @@ Open http://\<your host\>:8080 with a web browser.
 
 ```
 {
-    name: "Name of the author",
-    twitter: "@twitter account of the author"
+    "userName": "Unique user name which identifies an instance",
+    "gitHubId": "GitHub account of the author",
+    "twitterId": "Twitter account of the author",
+    "comment": "Comment shown in the listing"
 }
 ```
 

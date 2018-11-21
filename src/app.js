@@ -3,6 +3,7 @@ const CANVAS_HEIGHT = 1024;
 const THUMBNAIL_WIDTH = 256;
 const THUMBNAIL_HEIGHT = 256;
 const REFRESH_THRESHOLD = 5000;
+const AUTHOR_JSON = __dirname + '/data/author.json';
 
 const express = require('express');
 const app = express();
@@ -11,6 +12,12 @@ const io = require('socket.io')(http);
 const commandNamespace = io.of('/command');
 const notificationNamespace = io.of('/notification');
 const port = process.env.PORT || 8080;
+/*
+const allowHost =
+ process.env.ALLOW_HOST !== undefined &&
+ process.env.ALLOW_HOST !== "" ?
+ process.env.ALLOW_HOST : "http://localhost:3000";
+*/
 
 // Create a canvas for server-side drawing
 const { createCanvas, loadImage } = require('canvas')
@@ -26,6 +33,15 @@ ctx.fillStyle="white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Setup the express web app
+
+/*
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", allowHost);
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
+*/
 
 // GET /
 app.use(express.static(__dirname + '/public'));
@@ -47,12 +63,15 @@ app.get('/thumbnail', function (req, res) {
 
 // GET /author
 app.get('/author', function (req, res) {
+  res.download(AUTHOR_JSON);
+  /*
   res.type("json");
   res.send(JSON.stringify({
     name: "Koji Hatanaka",
     twitter: "@kojiha__",
     note: "This endpoint is to be implemented"
   }));
+  */
 })
 
 // socket.io connection handler
