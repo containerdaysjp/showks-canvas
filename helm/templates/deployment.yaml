@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-{{ .Values.userID }}
+  name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   namespace: showks
   labels:
     app: {{ .Chart.Name }}
