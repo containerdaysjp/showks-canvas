@@ -26,7 +26,7 @@ const ctx = canvas.getContext('2d');
 const thCanvas = createCanvas(THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
 const thCtx = thCanvas.getContext('2d');
 
-var lastUpdated = 0;
+let lastUpdated = 0;
 
 // Fill the background
 ctx.fillStyle="white";
@@ -81,12 +81,14 @@ function onCommandConnection(socket) {
   // Receive and broadcast drawing event
   socket.on('drawing', (data) => {
     commandNamespace.emit('drawing', data);
+    // console.log(`x:${data.x0}, y:${data.y0}`);
     drawLine(ctx, data.x0, data.y0, data.x1, data.y1, data.color);
     let updated = Date.now();
     let diff = updated - lastUpdated;
     if (REFRESH_THRESHOLD < diff || diff < 0) {
       notificationNamespace.emit('refresh', 1);
       lastUpdated = updated;
+      // console.log(`lastUpdated: ${lastUpdated}`);
     }
   });
 }
