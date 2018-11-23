@@ -1,17 +1,14 @@
 'use strict';
 
 (function() {
+  let socket = io('/command');
+  let canvas = document.getElementsByClassName('whiteboard')[0];
+  let colors = document.getElementsByClassName('color');
+  let context = canvas.getContext('2d');
 
-
-  var socket = io('/command');
-  var canvas = document.getElementsByClassName('whiteboard')[0];
-  var colors = document.getElementsByClassName('color');
-  var context = canvas.getContext('2d');
-
-  var current = {
-    color: 'black'
-  };
-  var drawing = false;
+  let selectedColor = 'black';
+  let drawing = false;
+  let saved = {};
 
 
   // Load initial image
@@ -27,7 +24,7 @@
   canvas.addEventListener('mouseout', onMouseUp, false);
   canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
 
-  for (var i = 0; i < colors.length; i++){
+  for (let i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
 
@@ -57,34 +54,42 @@
     });
   }
 
+  function getCanvasPoint(e) {
+    let rect = canvas.getBoundingClientRect();
+    return {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top
+    };
+  }
+
   function onMouseDown(e){
     drawing = true;
-    current.x = e.clientX;
-    current.y = e.clientY;
+    saved = getCanvasPoint(e);
   }
 
   function onMouseUp(e){
     if (!drawing) { return; }
     drawing = false;
-    drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
+    let current = getCanvasPoint(e);
+    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
   }
 
   function onMouseMove(e){
     if (!drawing) { return; }
-    drawLine(current.x, current.y, e.clientX, e.clientY, current.color, true);
-    current.x = e.clientX;
-    current.y = e.clientY;
+    let current = getCanvasPoint(e);
+    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    saved = current;
   }
 
   function onColorUpdate(e){
-    current.color = e.target.className.split(' ')[1];
+    selectedColor = e.target.className.split(' ')[1];
   }
 
   // limit the number of events per second
   function throttle(callback, delay) {
-    var previousCall = new Date().getTime();
+    let previousCall = new Date().getTime();
     return function() {
-      var time = new Date().getTime();
+      let time = new Date().getTime();
 
       if ((time - previousCall) >= delay) {
         previousCall = time;
