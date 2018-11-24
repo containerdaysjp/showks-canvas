@@ -4,19 +4,19 @@ metadata:
   name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   namespace: showks
   labels:
-    app: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Chart.Name }}
+      app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   template:
     metadata:
       labels:
-        app: {{ .Chart.Name }}
+        app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
     spec:
       containers:
-        - name: {{ .Chart.Name }}-{{ .Values.userID }}
+        - name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
           image: containerdaysjp/{{ .Chart.Name }}-{{ .Values.userID }}:{{ .Values.image.tag }}
           ports:
             - name: app-port

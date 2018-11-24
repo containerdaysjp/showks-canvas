@@ -4,7 +4,7 @@ metadata:
   name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   namespace: showks
   labels:
-    app: {{ .Chart.Name }}
+    app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
 spec:
   type: ClusterIP
   ports:
@@ -13,5 +13,4 @@ spec:
       protocol: TCP
       name: app-port
   selector:
-    app: {{ .Chart.Name }}
-
+    app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
