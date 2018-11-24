@@ -1,23 +1,23 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: {{ .Chart.Name }}{{ .Values.nameSuffix }}
+  name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   namespace: showks
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: {{ .Chart.Name }}.stg.showks.containerdays.jp
+  - host: {{ .Chart.Name }}-{{ .Values.userID }}.stg.showks.containerdays.jp
     http:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Chart.Name }}{{ .Values.nameSuffix }}
+          serviceName: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
           servicePort: 8080
-  - host: {{ .Chart.Name }}.prod.showks.containerdays.jp
+  - host: {{ .Chart.Name }}-{{ .Values.userID }}.prod.showks.containerdays.jp
     http:
       paths:
       - path: /
         backend:
-          serviceName: {{ .Chart.Name }}{{ .Values.nameSuffix }}
+          serviceName: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
           servicePort: 8080
