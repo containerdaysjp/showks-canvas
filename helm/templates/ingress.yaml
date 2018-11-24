@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
   namespace: showks
+  labels:
+    class: {{ .Chart.Name }}-{{ .Values.userID }}
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
