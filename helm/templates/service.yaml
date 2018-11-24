@@ -5,7 +5,7 @@ metadata:
   namespace: showks
   labels:
     app: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
-    class: {{ .Chart.Name }}-{{ .Values.userID }}
+    class: {{ .Chart.Name }}
 spec:
   type: ClusterIP
   ports:
