@@ -38,7 +38,6 @@ Open http://\<your host\>:8080 with a web browser.
 | /author    | Author information in (JSON) |
 
 #### Author information format
-* To be updated
 
 ```
 {

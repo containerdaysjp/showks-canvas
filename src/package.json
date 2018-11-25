@@ -7,6 +7,10 @@
     "Japan Container Days",
     "JKD"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/containerdaysjp/showks-canvas.git"
+  },
   "dependencies": {
     "express": ">=4.5.0",
     "socket.io": "latest",

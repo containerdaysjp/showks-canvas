@@ -64,14 +64,6 @@ app.get('/thumbnail', function (req, res) {
 // GET /author
 app.get('/author', function (req, res) {
   res.download(AUTHOR_JSON);
-  /*
-  res.type("json");
-  res.send(JSON.stringify({
-    name: "Koji Hatanaka",
-    twitter: "@kojiha__",
-    note: "This endpoint is to be implemented"
-  }));
-  */
 })
 
 // socket.io connection handler

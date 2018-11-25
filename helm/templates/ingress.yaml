@@ -9,14 +9,7 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: {{ .Chart.Name }}-{{ .Values.userID }}.stg.showks.containerdays.jp
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
-          servicePort: 8080
-  - host: {{ .Chart.Name }}-{{ .Values.userID }}.prod.showks.containerdays.jp
+  - host: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.vhostDomain }}
     http:
       paths:
       - path: /
