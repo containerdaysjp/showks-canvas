@@ -31,9 +31,18 @@
   canvas.addEventListener("touchcancel", onTouchEnd, false);
   
   // Setup color picker
+  /*
   for (let i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
+  */
+  let colorPicker = new window.iro.ColorPicker("#colorPicker", {
+    width: 200,
+    height: 200,
+    color: {r: 255, g: 0, b: 0},
+    markerRadius: 3
+  });
+  colorPicker.on('color:change', onColorChange);
 
   // socket.io drawing event handler
   socket.on('drawing', onDrawingEvent);
@@ -91,13 +100,18 @@
   }
 
   function onTouchStart(e) {
+    if (1 < e.touches.length) {
+      drawing = false;
+      return;
+    }
     drawing = true;
-    saved = getCanvasPoint(e);
+    saved = getCanvasPoint(e.touches[0]);
   }
 
   function onTouchMove(e) {
     if (!drawing) { return; }
-    let current = getCanvasPoint(e);
+    e.preventDefault();
+    let current = getCanvasPoint(e.touches[0]);
     drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
     saved = current;
   }
@@ -105,13 +119,16 @@
   function onTouchEnd(e) {
     if (!drawing) { return; }
     drawing = false;
-    let current = getCanvasPoint(e);
+    let current = getCanvasPoint(e.touches[0]);
     drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
-   
   }
 
   function onColorUpdate(e) {
     selectedColor = e.target.className.split(' ')[1];
+  }
+
+  function onColorChange(color, changes) {
+    selectedColor = color.hexString;
   }
 
   // limit the number of events per second

@@ -23,7 +23,7 @@ html, body {
   left: 0;
   top: 0;
 }
-
+/*
 .colors {
   position: fixed;
 }
@@ -39,3 +39,8 @@ html, body {
 .color.green { background-color: green; }
 .color.blue { background-color: blue; }
 .color.yellow { background-color: yellow; }
+*/
+#colorPicker {
+  position: fixed;
+  bottom: 0;
+}
