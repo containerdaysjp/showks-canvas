@@ -20,16 +20,25 @@
 
   // Start listening mouse events
   canvas.addEventListener('mousedown', onMouseDown, false);
+  canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
   canvas.addEventListener('mouseup', onMouseUp, false);
   canvas.addEventListener('mouseout', onMouseUp, false);
-  canvas.addEventListener('mousemove', throttle(onMouseMove, 10), false);
 
+  // Start listening touch events
+  canvas.addEventListener("touchstart", onTouchStart, false);
+  canvas.addEventListener("touchmove", throttle(onTouchMove, 10), false);
+  canvas.addEventListener("touchend", onTouchEnd, false);
+  canvas.addEventListener("touchcancel", onTouchEnd, false);
+  
+  // Setup color picker
   for (let i = 0; i < colors.length; i++){
     colors[i].addEventListener('click', onColorUpdate, false);
   }
 
+  // socket.io drawing event handler
   socket.on('drawing', onDrawingEvent);
 
+  // resize event handler
   window.addEventListener('resize', onResize, false);
   onResize();
 
@@ -62,26 +71,46 @@
     };
   }
 
-  function onMouseDown(e){
+  function onMouseDown(e) {
     drawing = true;
     saved = getCanvasPoint(e);
   }
 
-  function onMouseUp(e){
-    if (!drawing) { return; }
-    drawing = false;
-    let current = getCanvasPoint(e);
-    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
-  }
-
-  function onMouseMove(e){
+  function onMouseMove(e) {
     if (!drawing) { return; }
     let current = getCanvasPoint(e);
     drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
     saved = current;
   }
 
-  function onColorUpdate(e){
+  function onMouseUp(e) {
+    if (!drawing) { return; }
+    drawing = false;
+    let current = getCanvasPoint(e);
+    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+  }
+
+  function onTouchStart(e) {
+    drawing = true;
+    saved = getCanvasPoint(e);
+  }
+
+  function onTouchMove(e) {
+    if (!drawing) { return; }
+    let current = getCanvasPoint(e);
+    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    saved = current;
+  }
+
+  function onTouchEnd(e) {
+    if (!drawing) { return; }
+    drawing = false;
+    let current = getCanvasPoint(e);
+    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+   
+  }
+
+  function onColorUpdate(e) {
     selectedColor = e.target.className.split(' ')[1];
   }
 
@@ -98,7 +127,8 @@
     };
   }
 
-  function onDrawingEvent(data){
+  // Replicate remote drawing to this canvas
+  function onDrawingEvent(data) {
     drawLine(data.x0, data.y0, data.x1, data.y1, data.color);
   }
 
