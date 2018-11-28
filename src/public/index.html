@@ -3,12 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Collaborative whiteboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
-  <canvas class="whiteboard" width="1024" height="1024"></canvas>
+  <div id="control" width="220" height="1024">
+    <image id="logo" src="images/showKs-icon.png" width="50" height="50" alt="showKs logo" />
+    <div id="author">
+        <div class="authorItemLabel">このコンテナの作成者</div>
+        <div id="authorUserName" class="authorItemValue"><span class="value">userName</span></div>
+        <div id="authorGitHubId"class="authorItemSocial">[猫] <span class="value">gitHubId</span></div>
+        <div id="authorTwitterId"class="authorItemSocial">[鳥] <span class="value">twitterId</span></div>
+        <div class="authorItemLabel">メッセージ</div>
+        <div id="authorComment" class="authorItemValue"><span class="value">コメント（英: comment）とは、コンピュータ言語（プログラミング言語やデータ記述言語）によって書かれたソースコードのうち、人間のために覚えとして挿入された注釈のことである。 この部分はコンピュータが処理を行うときにはないものとして無視されるため、自由に文を挿入することができる。</span></div>
+      </div>
+    <div id="colorPicker"></div>
+  </div>
+  <canvas id="whiteboard" width="1024" height="1024"></canvas>
 
+  <!--
   <div class="colors">
     <div class="color black"></div>
     <div class="color red"></div>
@@ -16,10 +29,11 @@
     <div class="color blue"></div>
     <div class="color yellow"></div>
   </div>
-  <div id="colorPicker"></div>
+  -->
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/scripts/iro.min.js"></script>
+  <script src="/scripts/jquery-3.3.1.min.js"></script>
   <script src="/scripts/main.js"></script>
 </body>
 </html>

@@ -1,15 +1,13 @@
 'use strict';
 
-(function() {
+$(document).ready(function() {
   let socket = io('/command');
-  let canvas = document.getElementsByClassName('whiteboard')[0];
-  let colors = document.getElementsByClassName('color');
+  let canvas = document.getElementById('whiteboard');
   let context = canvas.getContext('2d');
 
   let selectedColor = 'black';
   let drawing = false;
   let saved = {};
-
 
   // Load initial image
   let image = new Image();
@@ -17,6 +15,20 @@
     context.drawImage(image, 0, 0);
   }; 
   image.src = '/canvas';
+
+  // Load author information
+  $.ajax('/author').done(function(data) {
+    $('#authorUserName').find(".value").text(data.userName);
+    $('#authorGitHubId').find(".value").text(data.gitHubId);
+    // twitterId is optional
+    if (data.twitterId !== undefined && data.twitterId !== "") {
+      $('#authorTwitterId').find(".value").text(data.twitterId);
+      $('#authorTwitterId').show();
+    } else {
+      $('#authorTwitterId').hide();
+    }
+    $('#authorComment').find(".value").text(data.comment);
+  });
 
   // Start listening mouse events
   canvas.addEventListener('mousedown', onMouseDown, false);
@@ -31,24 +43,20 @@
   canvas.addEventListener("touchcancel", onTouchEnd, false);
   
   // Setup color picker
-  /*
-  for (let i = 0; i < colors.length; i++){
-    colors[i].addEventListener('click', onColorUpdate, false);
-  }
-  */
-  let colorPicker = new window.iro.ColorPicker("#colorPicker", {
+  let iroPicker = new window.iro.ColorPicker("#colorPicker", {
     width: 200,
     height: 200,
     color: {r: 255, g: 0, b: 0},
     markerRadius: 3
   });
-  colorPicker.on('color:change', onColorChange);
+  iroPicker.on('color:change', onColorChange);
 
   // socket.io drawing event handler
   socket.on('drawing', onDrawingEvent);
 
   // resize event handler
   window.addEventListener('resize', onResize, false);
+  window.addEventListener('scroll', onResize, false);
   onResize();
 
 
@@ -151,8 +159,14 @@
 
   // make the canvas fill its parent
   function onResize() {
-//    canvas.width = window.innerWidth;
-//    canvas.height = window.innerHeight;
+    let wb = window.scrollY + window.innerHeight;
+    let control = $('#control');
+    let colorPicker = $('#colorPicker');
+    if (control.height() <= wb) {
+      colorPicker.css({top: control.height() - colorPicker.height()});
+    } else {
+      colorPicker.css({top: wb - colorPicker.height()});
+    }
   }
 
-})();
+});

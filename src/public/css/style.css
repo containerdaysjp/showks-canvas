@@ -1,0 +1,59 @@
+/**
+ * Fix user-agent
+ */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: darkgray;
+}
+
+#control {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 1024px;
+  background-color: #333333;
+  text-align: center;
+}
+
+#logo {
+  position: relative;
+  margin: 20px
+ }
+
+.authorContainer {
+  font-family: sans-serif;
+}
+
+.authorItemLabel {
+  margin: 5px;
+  color: white;
+  font-weight: bold;
+}
+
+.authorItemValue {
+  margin: 10px;
+  color: white;
+}
+
+.authorItemSocial {
+  margin: 10px;
+  color: white;
+}
+
+#whiteboard {
+  position: absolute;
+  left: 220px;
+  top: 0;
+}
+
+#colorPicker {
+  position: absolute;
+}
