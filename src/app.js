@@ -12,12 +12,7 @@ const io = require('socket.io')(http);
 const commandNamespace = io.of('/command');
 const notificationNamespace = io.of('/notification');
 const port = process.env.PORT || 8080;
-/*
-const allowHost =
- process.env.ALLOW_HOST !== undefined &&
- process.env.ALLOW_HOST !== "" ?
- process.env.ALLOW_HOST : "http://localhost:3000";
-*/
+const draw = require('./public/scripts/draw.js');
 
 // Create a canvas for server-side drawing
 const { createCanvas, loadImage } = require('canvas')
@@ -33,15 +28,6 @@ ctx.fillStyle="white";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 // Setup the express web app
-
-/*
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", allowHost);
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Credentials", true);
-  next();
-});
-*/
 
 // GET /
 app.use(express.static(__dirname + '/public'));
@@ -74,7 +60,7 @@ function onCommandConnection(socket) {
   socket.on('drawing', (data) => {
     commandNamespace.emit('drawing', data);
     // console.log(`x:${data.x0}, y:${data.y0}`);
-    drawLine(ctx, data.x0, data.y0, data.x1, data.y1, data.color);
+    draw.line(ctx, data.x0, data.y0, data.x1, data.y1, data.color);
     let updated = Date.now();
     let diff = updated - lastUpdated;
     if (REFRESH_THRESHOLD < diff || diff < 0) {
@@ -95,14 +81,3 @@ notificationNamespace.on('connection', onNotificationConnection);
 
 // Start listening on the port for HTTP request
 http.listen(port, () => console.log('listening on port ' + port));
-
-// Draw a line with color
-function drawLine(context, x0, y0, x1, y1, color) {
-  context.beginPath();
-  context.moveTo(x0, y0);
-  context.lineTo(x1, y1);
-  context.strokeStyle = color;
-  context.lineWidth = 5;
-  context.stroke();
-  context.closePath();
-}

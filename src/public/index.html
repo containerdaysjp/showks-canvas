@@ -3,21 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <title>Collaborative whiteboard</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
 
-  <canvas class="whiteboard" width="1024" height="1024"></canvas>
-
-  <div class="colors">
-    <div class="color black"></div>
-    <div class="color red"></div>
-    <div class="color green"></div>
-    <div class="color blue"></div>
-    <div class="color yellow"></div>
+  <div id="control" width="220" height="1024">
+    <div class="titleContainer">
+        <image class="logo" src="images/showKs-icon.png" alt="showKs logo" />
+        <div class='titleTextContainer'>
+            <div class='shoulder'>Japan Container Days</div>
+            <div class='title'>showKs Canvas</div>    
+        </div>
+    </div>
+    <div id="author" class='authorContainer'>
+        <div class="authorItemLabel">作成者</div>
+        <div id="authorUserName" class="authorItemValue"><span class="value"></span></div>
+        <div class="authorSocialContainer">
+          <span id="authorGitHubId" class="authorItemSocial"><i class="fab fa-github"></i><span class="value" style="display: none;"></span></span>
+          <span id="authorTwitterId" class="authorItemSocial"><i class="fab fa-twitter"></i><span class="value" style="display: none;"></span></span>
+        </div>
+        <div class="authorCommentContainer">
+          <div class="authorItemLabel">メッセージ</div>
+          <div id="authorComment" class="authorItemValue"><span class="value"></span></div>
+        </div>
+      </div>
+    <div id="colorPicker"></div>
   </div>
+  <canvas id="whiteboard" width="1024" height="1024"></canvas>
 
   <script src="/socket.io/socket.io.js"></script>
-  <script src="/main.js"></script>
+  <script src="/scripts/iro.min.js"></script>
+  <script src="/scripts/jquery-3.3.1.min.js"></script>
+  <script src="/scripts/draw.js"></script>
+  <script src="/scripts/main.js"></script>
 </body>
 </html>
