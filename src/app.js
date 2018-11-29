@@ -60,7 +60,7 @@ function onCommandConnection(socket) {
   socket.on('drawing', (data) => {
     commandNamespace.emit('drawing', data);
     // console.log(`x:${data.x0}, y:${data.y0}`);
-    draw.line(ctx, data.x0, data.y0, data.x1, data.y1, data.color);
+    draw.line(ctx, data.x0, data.y0, data.x1, data.y1, data.color, data.width);
     let updated = Date.now();
     let diff = updated - lastUpdated;
     if (REFRESH_THRESHOLD < diff || diff < 0) {
