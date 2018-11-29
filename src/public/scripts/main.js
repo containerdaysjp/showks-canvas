@@ -1,11 +1,16 @@
 'use strict';
 
+const COLORPICKER_LENGTH = 200;
+const COLORPICKER_BOTTOM_MARGIN = 20;
+
 $(document).ready(function() {
   let socket = io('/command');
   let canvas = document.getElementById('whiteboard');
   let context = canvas.getContext('2d');
+  let control = $('#control');
+  let colorPicker = $('#colorPicker');
 
-  let selectedColor = 'black';
+  let selectedColor = '#356eae';
   let drawing = false;
   let saved = {};
 
@@ -44,12 +49,13 @@ $(document).ready(function() {
   
   // Setup color picker
   let iroPicker = new window.iro.ColorPicker("#colorPicker", {
-    width: 200,
-    height: 200,
-    color: {r: 255, g: 0, b: 0},
+    width: COLORPICKER_LENGTH,
+    height: COLORPICKER_LENGTH,
+    color: selectedColor,
     markerRadius: 3
   });
   iroPicker.on('color:change', onColorChange);
+  iroPicker.on('mount', onResize());
 
   // socket.io drawing event handler
   socket.on('drawing', onDrawingEvent);
@@ -57,27 +63,12 @@ $(document).ready(function() {
   // resize event handler
   window.addEventListener('resize', onResize, false);
   window.addEventListener('scroll', onResize, false);
-  onResize();
 
-
-  function drawLine(x0, y0, x1, y1, color, emit){
-    context.beginPath();
-    context.moveTo(x0, y0);
-    context.lineTo(x1, y1);
-    context.strokeStyle = color;
-    context.lineWidth = 5;
-    context.stroke();
-    context.closePath();
-
+  function drawLine(data, emit) {
+    draw.line(context, data.x0, data.y0, data.x1, data.y1, data.color);
     if (!emit) { return; }
-
-    socket.emit('drawing', {
-      x0: x0,
-      y0: y0,
-      x1: x1,
-      y1: y1,
-      color: color
-    });
+    // Notify the server of drawing
+    socket.emit('drawing', data);
   }
 
   function getCanvasPoint(e) {
@@ -96,7 +87,13 @@ $(document).ready(function() {
   function onMouseMove(e) {
     if (!drawing) { return; }
     let current = getCanvasPoint(e);
-    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    drawLine({
+      x0: saved.x,
+      y0: saved.y,
+      x1: current.x,
+      y1: current.y,
+      color: selectedColor
+    }, true);
     saved = current;
   }
 
@@ -104,7 +101,13 @@ $(document).ready(function() {
     if (!drawing) { return; }
     drawing = false;
     let current = getCanvasPoint(e);
-    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    drawLine({
+      x0: saved.x,
+      y0: saved.y,
+      x1: current.x,
+      y1: current.y,
+      color: selectedColor
+    }, true);
   }
 
   function onTouchStart(e) {
@@ -120,7 +123,13 @@ $(document).ready(function() {
     if (!drawing) { return; }
     e.preventDefault();
     let current = getCanvasPoint(e.touches[0]);
-    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    drawLine({
+      x0: saved.x,
+      y0: saved.y,
+      x1: current.x,
+      y1: current.y,
+      color: selectedColor
+    }, true);
     saved = current;
   }
 
@@ -128,7 +137,13 @@ $(document).ready(function() {
     if (!drawing) { return; }
     drawing = false;
     let current = getCanvasPoint(e.touches[0]);
-    drawLine(saved.x, saved.y, current.x, current.y, selectedColor, true);
+    drawLine({
+      x0: saved.x,
+      y0: saved.y,
+      x1: current.x,
+      y1: current.y,
+      color: selectedColor
+    }, true);
   }
 
   function onColorUpdate(e) {
@@ -154,19 +169,17 @@ $(document).ready(function() {
 
   // Replicate remote drawing to this canvas
   function onDrawingEvent(data) {
-    drawLine(data.x0, data.y0, data.x1, data.y1, data.color);
+    drawLine(data);
   }
 
   // make the canvas fill its parent
   function onResize() {
-    let wb = window.scrollY + window.innerHeight;
-    let control = $('#control');
-    let colorPicker = $('#colorPicker');
-    if (control.height() <= wb) {
-      colorPicker.css({top: control.height() - colorPicker.height()});
-    } else {
-      colorPicker.css({top: wb - colorPicker.height()});
-    }
+    let wb = $(window).scrollTop() + $(window).height();
+    let top = control.height() <= wb ?
+      control.height() - COLORPICKER_LENGTH :
+      wb - COLORPICKER_LENGTH;
+    top -= COLORPICKER_BOTTOM_MARGIN;
+    colorPicker.css({ top: top });
   }
 
 });
