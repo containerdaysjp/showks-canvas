@@ -3,14 +3,14 @@
 
 (function(exports) {
     // Draw a line with color
-    exports.line = function(context, x0, y0, x1, y1, color) {
+    exports.line = function(context, x0, y0, x1, y1, color, width) {
         context.lineCap = 'round';
         context.lineJoin = 'round';
         context.beginPath();
         context.moveTo(x0, y0);
         context.lineTo(x1, y1);
         context.strokeStyle = color;
-        context.lineWidth = 7;
+        context.lineWidth = width;
         context.stroke();
         context.closePath();
     }

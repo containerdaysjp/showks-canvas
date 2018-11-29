@@ -28,7 +28,7 @@ html, body {
   width: 220px;
   padding: 20px;
   margin-top: 10px;
-  margin-bottom: 60px;
+  margin-bottom: 50px;
 }
 
 .logo {
@@ -87,7 +87,7 @@ html, body {
   margin-top: 35px;
   margin-left: 10px;
   margin-right: 10px;
-  font-size: 1.2em;
+  font-size: 1.0em;
 }
 
 #whiteboard {
@@ -96,24 +96,38 @@ html, body {
   top: 0;
 }
 
+#colorPickerContainer {
+  position: absolute;
+  width: 220px;
+}
+
 #colorPicker {
   position: absolute;
+  left: 10px;
+}
+
+.toolsContainer {
+  margin: 20px;
+}
+
+.toolItem {
+  padding: 10px;
 }
 
 /**
  * Font Awesome icons
  */
-.fab {
+.fab,.fas {
   font-size: 30px;
   text-align: center;
   text-decoration: none;
   color: lightgray;
 }
 
-.fab:hover {
+.fab:hover,.fas:hover {
   opacity: 0.8;
 }
 
-.fab:active {
+.fab:active,.fas:active {
   opacity: 0.5;
 }
