@@ -24,28 +24,70 @@ html, body {
   text-align: center;
 }
 
-#logo {
+.titleContainer {
+  width: 220px;
+  padding: 20px;
+  margin-top: 10px;
+  margin-bottom: 60px;
+}
+
+.logo {
+  float: left;
   position: relative;
-  margin: 20px
- }
+  width: 35px;
+  height: 35px;
+  margin: 5px
+}
+
+.titleTextContainer {
+  float: left;
+  width: 135px;
+  text-align: left;
+  color: white;
+}
+
+.shoulder {
+  font-size: 0.5em;
+  font-weight: bold;
+  color: aqua;
+}
+
+.title {
+  font-size: 1.2em;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'HelveticaNeue-CondensedBlack', sans-serif;
+}
 
 .authorContainer {
+  clear: both;
 }
 
 .authorItemLabel {
-  margin: 5px;
-  color: white;
+  margin: 15px;
+  font-size: 0.8em;
   font-weight: bold;
+  color: white;
 }
 
 .authorItemValue {
   margin: 10px;
-  color: white;
+  color: lightgrey;
+  font-size: 1.2em;
+}
+
+.authorSocialContainer {
+  margin: 20px;
 }
 
 .authorItemSocial {
   margin: 10px;
-  color: white;
+}
+
+.authorCommentContainer {
+  clear: both;
+  margin-top: 35px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 1.2em;
 }
 
 #whiteboard {
@@ -56,4 +98,22 @@ html, body {
 
 #colorPicker {
   position: absolute;
+}
+
+/**
+ * Font Awesome icons
+ */
+.fab {
+  font-size: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: lightgray;
+}
+
+.fab:hover {
+  opacity: 0.8;
+}
+
+.fab:active {
+  opacity: 0.5;
 }

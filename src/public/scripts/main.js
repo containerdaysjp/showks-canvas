@@ -24,10 +24,20 @@ $(document).ready(function() {
   // Load author information
   $.ajax('/author').done(function(data) {
     $('#authorUserName').find(".value").text(data.userName);
-    $('#authorGitHubId').find(".value").text(data.gitHubId);
-    // twitterId is optional
+    let authorGitHubId = $('#authorGitHubId');
+    let gitHubIdValue = authorGitHubId.find(".value");
+    gitHubIdValue.text(data.gitHubId);
+    authorGitHubId.on("click", function() {
+      window.open('https://github.com/' + gitHubIdValue.text());
+    });
+  // twitterId is optional
     if (data.twitterId !== undefined && data.twitterId !== "") {
-      $('#authorTwitterId').find(".value").text(data.twitterId);
+      let authorTwitterId = $('#authorTwitterId'); 
+      let twitterIdValue = authorTwitterId.find(".value");
+      twitterIdValue.text(data.twitterId);
+      authorTwitterId.on("click", function() {
+        window.open('https://twitter.com/' + twitterIdValue.text());
+      });
       $('#authorTwitterId').show();
     } else {
       $('#authorTwitterId').hide();
