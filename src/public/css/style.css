@@ -91,6 +91,10 @@ html, body {
   font-size: 1.0em;
 }
 
+.comment {
+  overflow-wrap: break-word;
+}
+
 #whiteboard {
   position: absolute;
   left: 220px;
