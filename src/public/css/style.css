@@ -80,6 +80,7 @@ html, body {
 
 .authorItemSocial {
   margin: 10px;
+  cursor: pointer;
 }
 
 .authorCommentContainer {
@@ -107,27 +108,60 @@ html, body {
 }
 
 .toolsContainer {
-  margin: 20px;
+  margin: 15px;
 }
 
 .toolItem {
+  margin-left: 2px;
+  margin-right: 2px;
   padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333333;
+}
+
+.toolItem:hover {
+  background-color: darkgray;
+}
+
+.toolItem:active {
+  background-color: #999999;
+}
+
+.toolItem:hover > i {
+  color: #eeeeee;
+}
+
+.toolItem.selected {
+  background-color: lightgray;
+}
+
+.toolItem.selected > i {
+  color: #333333;
 }
 
 /**
  * Font Awesome icons
  */
-.fab,.fas {
+.fab {
   font-size: 30px;
   text-align: center;
   text-decoration: none;
   color: lightgray;
 }
 
-.fab:hover,.fas:hover {
+.fab:hover {
   opacity: 0.8;
 }
 
-.fab:active,.fas:active {
+.fab:active {
   opacity: 0.5;
+}
+
+.fas {
+  font-size: 25px;
+  text-align: center;
+  text-decoration: none;
+  color: lightgray;
 }

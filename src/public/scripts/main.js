@@ -99,10 +99,14 @@ $(document).ready(function() {
 
   function selectPenTool() {
     selectedTool = TOOLITEM_PEN;
+    $('#toolItemPen').addClass('selected');
+    $('#toolItemEraser').removeClass('selected');
   }
 
   function selectEraserTool() {
     selectedTool = TOOLITEM_ERASER;
+    $('#toolItemPen').removeClass('selected');
+    $('#toolItemEraser').addClass('selected');
   }
 
   function drawLine(data, emit) {
