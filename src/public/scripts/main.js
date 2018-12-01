@@ -4,6 +4,7 @@ const COLORPICKER_LENGTH = 200;
 const COLORPICKER_CONTAINER_HEIGHT = 290;
 const PEN_WIDTH = 7;
 const ERASER_WIDTH = 14;
+const MAX_COMMENT = 70;
 
 const TOOLITEM_PEN = 'pen';
 const TOOLITEM_ERASER = 'eraser';
@@ -40,7 +41,7 @@ $(document).ready(function() {
       window.open('https://github.com/' + gitHubIdValue.text());
     });
     // Set twitter ID (optional)
-    if (data.twitterId !== undefined && data.twitterId !== "") {
+    if (data.twitterId !== undefined && data.twitterId !== '') {
       let authorTwitterId = $('#authorTwitterId'); 
       let twitterIdValue = authorTwitterId.find(".value");
       twitterIdValue.text(data.twitterId);
@@ -52,7 +53,11 @@ $(document).ready(function() {
       $('#authorTwitterId').hide();
     }
     // Set comment
-    $('#authorComment').find(".value").text(data.comment);
+    let comment = '';
+    if (data.comment !== undefined && data.comment !== '') {
+      comment = data.comment.toString().substr(0, MAX_COMMENT);
+    }
+    $('#authorComment').find(".value").text(comment);
   });
 
   // Setup tools
