@@ -5,6 +5,7 @@ const THUMBNAIL_HEIGHT = 256;
 const REFRESH_THRESHOLD = 5000;
 const AUTHOR_JSON = __dirname + '/data/author.json';
 
+const version = process.env.npm_package_version;
 const express = require('express');
 const app = express();
 const http = require('http').Server(app);
@@ -32,15 +33,20 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 // GET /
 app.use(express.static(__dirname + '/public'));
 
+// GET /version
+app.get('/version', function(req, res) {
+  res.send(`showKs Canvas version ${version}`);
+});
+
 // GET /canvas
-app.get('/canvas', function (req, res) {
+app.get('/canvas', function(req, res) {
   res.type("png");
   let stream = canvas.createPNGStream();
   stream.pipe(res);
 })
 
 // GET /thumbnail
-app.get('/thumbnail', function (req, res) {
+app.get('/thumbnail', function(req, res) {
   thCtx.drawImage(canvas, 0, 0, canvas.width, canvas.height, 0, 0, thCanvas.width, thCanvas.height);
   res.type("png");
   let stream = thCanvas.createPNGStream();
@@ -48,7 +54,7 @@ app.get('/thumbnail', function (req, res) {
 })
 
 // GET /author
-app.get('/author', function (req, res) {
+app.get('/author', function(req, res) {
   res.download(AUTHOR_JSON);
 })
 

@@ -35,6 +35,7 @@ Open http://\<your host\>:8080 with a web browser.
 | /canvas    | Latest canvas image (PNG)    |
 | /thumbnail | Canvas thumbnail (PNG)       |
 | /author    | Author information in (JSON) |
+| /version   | Version information of Canvas |
 
 #### Author information format
 
