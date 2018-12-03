@@ -129,6 +129,18 @@ $(document).ready(function() {
     };
   }
 
+  function applyForce(touch) {
+    let force = touch.force;
+    if (force !== undefined && 0.0 < force) {
+      selectedPenWidth = Math.floor(7.0 * force);
+      if (selectedPenWidth <= 0) {
+        selectedPenWidth = 1;
+      }
+    } else {
+      selectedPenWidth = PEN_WIDTH;
+    }
+  }
+
   function drawLineToCursor(current) {
     let data = {
       x0: saved.x,
@@ -157,6 +169,7 @@ $(document).ready(function() {
   function onMouseMove(e) {
     if (!drawing) { return; }
     let current = getCanvasPoint(e);
+    selectedPenWidth = PEN_WIDTH;
     drawLineToCursor(current);
     saved = current;
   }
@@ -165,6 +178,7 @@ $(document).ready(function() {
     if (!drawing) { return; }
     drawing = false;
     let current = getCanvasPoint(e);
+    selectedPenWidth = PEN_WIDTH;
     drawLineToCursor(current);
   }
 
@@ -182,6 +196,7 @@ $(document).ready(function() {
     if (!drawing) { return; }
     e.preventDefault();
     let current = getCanvasPoint(e.touches[0]);
+    applyForce(e.touches[0]);
     drawLineToCursor(current);
     saved = current;
   }
@@ -190,6 +205,7 @@ $(document).ready(function() {
     if (!drawing) { return; }
     drawing = false;
     let current = getCanvasPoint(e.touches[0]);
+    applyForce(e.touches[0]);
     drawLineToCursor(current);
   }
 
