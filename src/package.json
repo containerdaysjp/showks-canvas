@@ -1,6 +1,6 @@
 {
   "name": "showks-canvas",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "A simple collaborative whiteboard using socket.io",
   "main": "app.js",
   "keywords": [
