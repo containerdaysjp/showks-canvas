@@ -21,6 +21,7 @@ $(document).ready(function() {
   let selectedPenWidth = PEN_WIDTH;
   let drawing = false;
   let saved = {};
+  let currentForce = 1.0;
 
   // Load initial image
   let image = new Image();
@@ -98,6 +99,13 @@ $(document).ready(function() {
   canvas.addEventListener("touchend", onTouchEnd, false);
   canvas.addEventListener("touchcancel", onTouchEnd, false);
 
+  // Set pressure hander
+  Pressure.set(canvas, {
+    change: function(force, event) {
+      currentForce = force;
+    }  
+  }, {only: 'touch'});
+
   // resize event handler
   window.addEventListener('resize', onResize, false);
   window.addEventListener('scroll', onResize, false);
@@ -129,10 +137,9 @@ $(document).ready(function() {
     };
   }
 
-  function applyForce(touch) {
-    let force = touch.force;
-    if (force !== undefined && 0.0 < force) {
-      selectedPenWidth = Math.floor(7.0 * force);
+  function applyForce() {
+    if (0.0 < currentForce) {
+      selectedPenWidth = Math.floor(10.0 * Math.sqrt(currentForce));
       if (selectedPenWidth <= 0) {
         selectedPenWidth = 1;
       }
@@ -190,13 +197,14 @@ $(document).ready(function() {
     }
     drawing = true;
     saved = getCanvasPoint(e.touches[0]);
+    applyForce();
   }
 
   function onTouchMove(e) {
     if (!drawing) { return; }
     e.preventDefault();
     let current = getCanvasPoint(e.touches[0]);
-    applyForce(e.touches[0]);
+    applyForce();
     drawLineToCursor(current);
     saved = current;
   }
@@ -205,7 +213,6 @@ $(document).ready(function() {
     if (!drawing) { return; }
     drawing = false;
     let current = getCanvasPoint(e.touches[0]);
-    applyForce(e.touches[0]);
     drawLineToCursor(current);
   }
 
