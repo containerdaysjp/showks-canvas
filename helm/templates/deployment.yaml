@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: {{ .Chart.Name }}-{{ .Values.userID }}{{ .Values.nameSuffix }}
-          image: gcr.io/ipc-containerdays/{{ .Chart.Name }}-{{ .Values.userID }}:{{ .Values.image.tag }}
+          image: gcr.io/ipc-cloudnativedays/{{ .Chart.Name }}-{{ .Values.userID }}:{{ .Values.image.tag }}
           ports:
             - name: app-port
               containerPort: 8080
