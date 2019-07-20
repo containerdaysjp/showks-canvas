@@ -7,7 +7,8 @@ RUN apk add --no-cache \
     g++ \
     cairo-dev \
     pango-dev \
-    jpeg-dev
+    jpeg-dev \
+    python
 RUN npm install canvas --only=production
 
 # Stage 1
