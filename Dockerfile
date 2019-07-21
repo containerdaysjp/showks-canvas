@@ -1,5 +1,5 @@
 # Stage 0
-FROM node:8-alpine
+FROM node:10.16.0-alpine
 
 WORKDIR /build
 RUN apk add --no-cache \
@@ -12,7 +12,7 @@ RUN apk add --no-cache \
 RUN npm install canvas --only=production
 
 # Stage 1
-FROM node:8-alpine
+FROM node:10.16.0-alpine
 
 # Create app directory
 WORKDIR /usr/src/app
